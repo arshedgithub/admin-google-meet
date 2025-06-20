@@ -1,12 +1,19 @@
 import { Router } from 'express';
 import { MeetController } from '../controllers';
+import { authenticate, requireAdmin,  } from '../middleware';
 
 const router = Router();
 
-router.post('/', MeetController.create);
+// All routes require authentication
+router.use(authenticate);
+
+// Admin only routes
+router.post('/', requireAdmin, MeetController.create);
+router.put('/:id', requireAdmin, MeetController.update);
+router.delete('/:id', requireAdmin, MeetController.delete);
+
+// Authenticated user routes
 router.get('/', MeetController.list);
 router.get('/:id', MeetController.getById);
-router.put('/:id', MeetController.update);
-router.delete('/:id', MeetController.delete);
 
 export default router; 
