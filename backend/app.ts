@@ -3,9 +3,16 @@ import mongoose from 'mongoose';
 
 import { AppConfig } from './config';
 
+import userRoutes from './routes/user.route';
+import meetRoutes from './routes/meet.route';
+
 const app = express();
 
 app.use(express.json());
+
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/meets', meetRoutes);
 
 // MongoDB connection
 mongoose.connect(AppConfig.MONGO_URI)
@@ -19,8 +26,3 @@ mongoose.connect(AppConfig.MONGO_URI)
     console.error('Failed to connect to MongoDB', err);
     process.exit(1);
   });
-
-// Basic route
-app.get('/', (req, res) => {
-  res.send('Admin Meet API is running');
-});

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { MeetController } from '../controllers/meet.controller';
+import { MeetController } from '../controllers';
 
 const router = Router();
 
